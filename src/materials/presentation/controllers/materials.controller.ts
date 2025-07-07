@@ -7,7 +7,6 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiResponse } from '@nestjs/swagger';
-import { Express } from 'express';
 
 import { HttpCodeEnum } from '~_shared/constants/http-code.enum';
 import { CreateMaterialContract } from '~materials/application/use-cases/create-material/create-material.contract';
@@ -28,9 +27,7 @@ export class MaterialsController {
     description: 'Material created successfully',
     type: CreateMaterialResponseDTO,
   })
-  async create(
-    @UploadedFile() file: Express.Multer.File,
-  ): Promise<CreateMaterialResponseDTO[]> {
+  async create(@UploadedFile() file): Promise<CreateMaterialResponseDTO[]> {
     return this.createMaterial.execute(file);
   }
 }

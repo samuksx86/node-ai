@@ -1,4 +1,4 @@
-import pdf from 'pdf-parse';
+import * as pdf from 'pdf-parse';
 
 import {
   CreateMaterialContract,
@@ -14,18 +14,12 @@ export class CreateMaterialUsecase implements CreateMaterialContract {
   constructor(private readonly embeddingOpenAI: IEmbeddingOpenAI) {}
 
   async execute(file: CreateMaterialInput): Promise<CreateMaterialOutput[]> {
-    console.log(
-      '📄 Iniciando a geração de vetores para o material:',
-      file.originalname,
-    );
-
     const allVectors: CreateMaterialOutput[] = [];
 
     const fileText = await this.extractTextFromPdf(file.buffer);
     const chunks = this.generateChunks(fileText);
 
     for (const [i, chunk] of chunks.entries()) {
-      console.log('🔍 Processando chunk:', i + 1, 'de', chunks.length);
       const embedding = await this.embeddingOpenAI.execute({ text: chunk });
 
       allVectors.push({
@@ -34,8 +28,6 @@ export class CreateMaterialUsecase implements CreateMaterialContract {
         text: chunk,
         embedding: embedding.embeddings,
       });
-
-      console.log(`✅ Chunk ${i + 1} de ${file.originalname} gerado`);
     }
 
     return allVectors;
