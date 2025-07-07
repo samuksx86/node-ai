@@ -5,10 +5,6 @@ export const envSchema = z.object({
   PORT: z.string().regex(/^\d+$/).transform(Number),
   CORS_URL: z.string().optional(),
 
-  // MongoDB
-  MONGODB_URI: z.string().optional(),
-  MONGODB_DB_NAME: z.string().optional(),
-
   OPENAI_API_KEY: z.string(),
 });
 
