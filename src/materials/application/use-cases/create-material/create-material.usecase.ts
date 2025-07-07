@@ -7,11 +7,15 @@ import {
 } from './create-material.contract';
 
 import { IEmbeddingOpenAI } from '~_shared/domain/contracts/embedding-openai';
+import { IPinecone } from '~_shared/domain/contracts/pinecone';
 
 const CHUNK_SIZE = 500;
 
 export class CreateMaterialUsecase implements CreateMaterialContract {
-  constructor(private readonly embeddingOpenAI: IEmbeddingOpenAI) {}
+  constructor(
+    private readonly embeddingOpenAI: IEmbeddingOpenAI,
+    private readonly pineconeRepository: IPinecone,
+  ) {}
 
   async execute(file: CreateMaterialInput): Promise<CreateMaterialOutput[]> {
     const allVectors: CreateMaterialOutput[] = [];
@@ -28,6 +32,14 @@ export class CreateMaterialUsecase implements CreateMaterialContract {
         text: chunk,
         embedding: embedding.embeddings,
       });
+
+      const pineconeDomain = {
+        id: `${file.originalname}-${i}`,
+        values: embedding.embeddings,
+        metadata: { text: chunk },
+      };
+
+      await this.pineconeRepository.create(pineconeDomain);
     }
 
     return allVectors;

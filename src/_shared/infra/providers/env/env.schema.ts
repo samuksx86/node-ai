@@ -6,6 +6,7 @@ export const envSchema = z.object({
   CORS_URL: z.string().optional(),
 
   OPENAI_API_KEY: z.string(),
+  PINECONE_API_KEY: z.string(),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;

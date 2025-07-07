@@ -67,7 +67,6 @@ npm run test
 - TypeScript
 - Docker + Docker Compose
 - ESLint + Prettier
-- Jest
 
 ### 📌 Roadmap e Melhorias Futuras
 

@@ -1,5 +1,6 @@
 const SharedTokens = {
   EMBEDDING_OPENAI: Symbol.for('EMBEDDING_OPENAI'),
+  PINECONE: Symbol.for('PINECONE'),
 } as const;
 
 const UseCaseTokens = {
