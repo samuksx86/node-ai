@@ -16,7 +16,7 @@
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typeorm": "ts-node -r tsconfig-paths/register  -r dotenv/config ./node_modules/typeorm/cli",
+    "typeorm": "ts-node -r tsconfig-paths/register  -r dotenv/config ./node_modules/typeorm/cli"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -36,7 +36,8 @@
     "pdf-parse": "^1.1.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.17"
+    "typeorm": "^0.3.17",
+    "@pinecone-database/pinecone": "^6.1.1"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.9",
