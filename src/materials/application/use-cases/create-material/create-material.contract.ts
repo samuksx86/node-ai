@@ -1,12 +1,10 @@
+import { Express } from 'express';
+
 export interface CreateMaterialContract {
-  execute(input: CreateMaterialInput): Promise<CreateMaterialOutput[]>;
+  execute(file: CreateMaterialInput): Promise<CreateMaterialOutput[]>;
 }
 
-export type CreateMaterialInput = {
-  buffer: Buffer;
-  originalname: string;
-  mimetype: string;
-};
+export type CreateMaterialInput = Express.Multer.File;
 
 export type CreateMaterialOutput = {
   file: string;
