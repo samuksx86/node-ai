@@ -13,17 +13,15 @@ const CHUNK_SIZE = 500;
 export class CreateMaterialUsecase implements CreateMaterialContract {
   constructor(private readonly embeddingOpenAI: IEmbeddingOpenAI) {}
 
-  async execute(input: CreateMaterialInput): Promise<CreateMaterialOutput[]> {
+  async execute(file: CreateMaterialInput): Promise<CreateMaterialOutput[]> {
     console.log(
       '📄 Iniciando a geração de vetores para o material:',
-      input.file.name,
+      file.originalname,
     );
 
     const allVectors: CreateMaterialOutput[] = [];
 
-    const { file } = input;
-
-    const fileText = await this.extractTextFromPdf(file);
+    const fileText = await this.extractTextFromPdf(file.buffer);
     const chunks = this.generateChunks(fileText);
 
     for (const [i, chunk] of chunks.entries()) {
@@ -31,23 +29,20 @@ export class CreateMaterialUsecase implements CreateMaterialContract {
       const embedding = await this.embeddingOpenAI.execute({ text: chunk });
 
       allVectors.push({
-        file: file.name,
+        file: file.originalname,
         chunk: i,
         text: chunk,
         embedding: embedding.embeddings,
       });
 
-      console.log(`✅ Chunk ${i + 1} de ${file.name} gerado`);
+      console.log(`✅ Chunk ${i + 1} de ${file.originalname} gerado`);
     }
 
     return allVectors;
   }
 
-  private async extractTextFromPdf(file: File): Promise<string> {
-    const arrayBuffer = await file.arrayBuffer();
-    const dataBuffer = Buffer.from(arrayBuffer);
-
-    const pdfData = await pdf(dataBuffer);
+  private async extractTextFromPdf(buffer: Buffer): Promise<string> {
+    const pdfData = await pdf(buffer);
     return pdfData.text;
   }
 
