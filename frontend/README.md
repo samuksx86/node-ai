@@ -1,5 +1,62 @@
 # React + TypeScript + Vite
+# Assistente de Conversação
 
+Este é um projeto de interface semelhante ao ChatGPT que permite aos usuários enviar perguntas e receber respostas do assistente virtual.
+
+## Características
+
+- Interface de chat intuitiva e responsiva
+- Histórico de mensagens entre usuário e assistente
+- Indicador de carregamento durante a geração de respostas
+- Área de texto ajustável para entrada de mensagens
+- Design moderno inspirado em interfaces de IA conversacional
+
+## Tecnologias Utilizadas
+
+- React 19.1.0
+- TypeScript 5.8.3
+- Vite para build e desenvolvimento
+
+## Estrutura do Projeto
+
+```
+├── src/
+│   ├── components/
+│   │   ├── ChatHistory.tsx   # Componente para exibir mensagens
+│   │   ├── ChatInput.tsx     # Componente para entrada de mensagens
+│   │   ├── ChatMessage.tsx   # Componente para exibir mensagem individual
+│   ├── services/
+│   │   ├── messageService.ts # Serviço para gerenciar mensagens
+│   ├── types/
+│   │   ├── index.ts          # Definições de tipos para a aplicação
+│   ├── App.css               # Estilos específicos do aplicativo
+│   ├── App.tsx               # Componente principal
+│   ├── index.css             # Estilos globais
+│   └── main.tsx              # Ponto de entrada
+```
+
+## Como Executar
+
+1. Clone o repositório
+2. Instale as dependências: `npm install`
+3. Execute o projeto em modo de desenvolvimento: `npm run dev`
+4. Acesse no navegador: `http://localhost:5173/`
+
+## Personalização
+
+O projeto pode ser facilmente personalizado:
+
+- Ajuste os estilos em `App.css` e `index.css`
+- Modifique o comportamento de geração de respostas em `services/messageService.ts`
+- Adicione novas funcionalidades aos componentes existentes
+
+## Próximos Passos
+
+- Integração com APIs de IA para respostas reais
+- Persistência do histórico de conversas
+- Temas claros/escuros
+- Exportação de conversas
+- Suporte para formatação de mensagens (Markdown)
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

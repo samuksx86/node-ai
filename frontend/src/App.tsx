@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+import ChatHistory from './components/ChatHistory';
+import ChatInput from './components/ChatInput';
+import { createUserMessage, generateResponseMessage } from './services/messageService';
+import type { Message } from './types';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (input.trim() === '' || isLoading) return;
+
+    const userMessage = createUserMessage(input);
+
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    setTimeout(async () => {
+      const assistantMessage = await generateResponseMessage(userMessage.content);
+
+      setMessages(prev => [...prev, assistantMessage]);
+      setIsLoading(false);
+    }, 1000);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="chat-container">
+      <h1 className="app-title">Bino</h1>
+
+      <ChatHistory 
+        messages={messages} 
+        isLoading={isLoading} 
+      />
+
+      <ChatInput 
+        input={input} 
+        setInput={setInput} 
+        handleSubmit={handleSubmit} 
+        isLoading={isLoading} 
+      />
+    </div>
+  );
 }
 
-export default App
+export default App;

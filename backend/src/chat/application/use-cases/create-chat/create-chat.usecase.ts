@@ -57,7 +57,7 @@ export class CreateChatUsecase implements CreateChatContract {
       Instruções:
       1. Escolha o trecho com o **maior score** que também responda de forma coerente à pergunta.
       2. Se nenhum dos trechos realmente responder à pergunta de forma adequada, diga:
-         "Nenhum dos trechos responde claramente à pergunta."
+         "Nenhum dos materiais responde claramente à pergunta."
       3. Se houver um trecho adequado, faça duas coisas:
          a) Identifique qual trecho foi escolhido (exemplo: "Trecho 1")
          b) Resuma o conteúdo desse trecho em 2 a 3 frases, respondendo claramente à pergunta do usuário, de forma natural e sem copiar integralmente o texto.
