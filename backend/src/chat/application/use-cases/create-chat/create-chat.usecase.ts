@@ -55,13 +55,13 @@ export class CreateChatUsecase implements CreateChatContract {
       ${chunks}
 
       Instruções:
-      1. Escolha o trecho com o **maior score** que também responda de forma coerente à pergunta.
-      2. Se nenhum dos trechos realmente responder à pergunta de forma adequada, diga:
+      1. Você só pode usar as informações contidas nos trechos abaixo para responder.
+      2. Escolha o trecho com o **maior score** que também responda de forma coerente à pergunta.
+      3. Se nenhum dos trechos realmente responder à pergunta de forma adequada, diga exatamente:
          "Nenhum dos materiais responde claramente à pergunta."
-      3. Se houver um trecho adequado, faça duas coisas:
-         a) Identifique qual trecho foi escolhido (exemplo: "Trecho 1")
-         b) Resuma o conteúdo desse trecho em 2 a 3 frases, respondendo claramente à pergunta do usuário, de forma natural e sem copiar integralmente o texto.
-      4. Não inclua o número do trecho, nem a palavra 'Resumo:', nem nenhuma outra marcação — apenas o texto final resumido, pronto para ser mostrado ao usuário.
+      4. Se houver um trecho adequado, resuma o conteúdo desse trecho em 2 a 3 frases, respondendo claramente à pergunta do usuário, de forma natural e sem copiar integralmente o texto.
+      5. Não invente informações. Se a resposta não estiver nos trechos, apenas diga a frase do item 3 (exatamente igual a mensagem do trecho 3 nada de acrescimos).
+      6. Não inclua o número do trecho, nem a palavra 'Resumo:', nem nenhuma outra marcação — apenas o texto final resumido, pronto para ser mostrado ao usuário.
     `;
 
     const chatResponse = await this.messageOpenAI.execute({ question: prompt });

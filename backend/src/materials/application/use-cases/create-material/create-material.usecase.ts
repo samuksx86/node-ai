@@ -54,8 +54,8 @@ export class CreateMaterialUsecase implements CreateMaterialContract {
     const words = text.split(/\s+/);
     const chunks: string[] = [];
 
-    for (let i = 0; i < words.length; i += chunkSize) {
-      chunks.push(words.slice(i, i + chunkSize).join(' '));
+    for (let index = 0; index < words.length; index += chunkSize) {
+      chunks.push(words.slice(index, index + chunkSize).join(' '));
     }
 
     return chunks;
