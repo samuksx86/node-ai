@@ -1,5 +1,8 @@
+import { router } from '@/routes';
+import { RouterProvider } from 'react-router';
+
 function App() {
-  return <div className={'bg-emerald-800'}>routes</div>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
